@@ -29,17 +29,19 @@ public class GetDataAPIASyncUsage implements Watcher {
         zk.setData(path, "123".getBytes(), -1 );
         nodeDataChangedSemaphore.await();
     }
+
+    @Override
     public void process(WatchedEvent event) {
         if (KeeperState.SyncConnected == event.getState()) {
-  	      if (EventType.None == event.getType() && null == event.getPath()) {
-  	          connectedSemaphore.countDown();
-  	      } else if (event.getType() == EventType.NodeDataChanged) {
-  	          try {
-  	        	zk.getData( event.getPath(), true, new IDataCallback(), null );
-  	          } catch (Exception e) {}
-  	      }
-  	    }
-       }
+            if (EventType.None == event.getType() && null == event.getPath()) {
+                connectedSemaphore.countDown();
+            } else if (event.getType() == EventType.NodeDataChanged) {
+                try {
+                    zk.getData( event.getPath(), true, new IDataCallback(), null );
+                } catch (Exception e) {}
+            }
+        }
+    }
 }
 
 class IDataCallback implements AsyncCallback.DataCallback{

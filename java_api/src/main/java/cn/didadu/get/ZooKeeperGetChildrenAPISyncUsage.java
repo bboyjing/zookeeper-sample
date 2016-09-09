@@ -49,16 +49,16 @@ public class ZooKeeperGetChildrenAPISyncUsage implements Watcher {
     }
 
     public void process(WatchedEvent event) {
-      if (KeeperState.SyncConnected == event.getState()) {
-        if (EventType.None == event.getType() && null == event.getPath()) {
-            connectedSemaphore.countDown();
-        } else if (event.getType() == EventType.NodeChildrenChanged) {
-            try {
-                //收到子节点变更通知，重新主动查询子节点信息
-                System.out.println("ReGet Child:" + zk.getChildren(event.getPath(),true));
-                watcherSemaphore.countDown();
-            } catch (Exception e) {}
+        if (KeeperState.SyncConnected == event.getState()) {
+            if (EventType.None == event.getType() && null == event.getPath()) {
+                connectedSemaphore.countDown();
+            } else if (event.getType() == EventType.NodeChildrenChanged) {
+                try {
+                    //收到子节点变更通知，重新主动查询子节点信息
+                    System.out.println("ReGet Child:" + zk.getChildren(event.getPath(),true));
+                    watcherSemaphore.countDown();
+                } catch (Exception e) {}
+            }
         }
-      }
     }
 }

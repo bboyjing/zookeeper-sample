@@ -45,15 +45,15 @@ public class GetDataAPISyncUsage implements Watcher {
 	@Override
     public void process(WatchedEvent event) {
         if (KeeperState.SyncConnected == event.getState()) {
-  	      if (EventType.None == event.getType() && null == event.getPath()) {
+			if (EventType.None == event.getType() && null == event.getPath()) {
   	          connectedSemaphore.countDown();
-  	      } else if (event.getType() == EventType.NodeDataChanged) {
-  	          try {
-  	              System.out.println(new String(zk.getData( event.getPath(), true, stat)));
-  	              System.out.println(stat.getCzxid()+","+ stat.getMzxid()+","+ stat.getVersion());
-				  nodeDataChangedSemaphore.countDown();
-  	          } catch (Exception e) {}
-  	      }
+			} else if (event.getType() == EventType.NodeDataChanged) {
+				try {
+					System.out.println(new String(zk.getData( event.getPath(), true, stat)));
+					System.out.println(stat.getCzxid()+","+ stat.getMzxid()+","+ stat.getVersion());
+					nodeDataChangedSemaphore.countDown();
+				} catch (Exception e) {}
+			}
 		}
 	}
 }
