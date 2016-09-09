@@ -1,4 +1,4 @@
-package cn.didadu;
+package cn.didadu.create;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;

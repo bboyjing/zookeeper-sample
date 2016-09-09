@@ -1,4 +1,4 @@
-package cn.didadu;
+package cn.didadu.create;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
@@ -55,7 +55,7 @@ class IStringCallback implements AsyncCallback.StringCallback {
 
     public void processResult(int rc, String path, Object ctx, String name) {
         System.out.println("Create path result: [" + rc + ", " + path + ", "
-                + ctx + ", real path name: " + name);
+                + ctx + ", real path name: " + name + "]");
         createSemaphore.countDown();
     }
 }

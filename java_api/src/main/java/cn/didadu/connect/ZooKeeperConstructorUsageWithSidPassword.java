@@ -1,4 +1,4 @@
-package cn.didadu;
+package cn.didadu.connect;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;

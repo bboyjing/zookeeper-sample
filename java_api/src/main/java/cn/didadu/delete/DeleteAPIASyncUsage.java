@@ -1,4 +1,4 @@
-package cn.didadu;
+package cn.didadu.delete;
 
 import org.apache.zookeeper.AsyncCallback;
 import org.apache.zookeeper.WatchedEvent;
@@ -23,6 +23,7 @@ public class DeleteAPIASyncUsage implements Watcher{
         zk.delete("/persistent-node", -1, new IVoidCallback(deleteSemaphore), "delete");
         deleteSemaphore.await();
     }
+
     @Override
     public void process(WatchedEvent event) {
         if (Event.KeeperState.SyncConnected == event.getState()) {

@@ -1,9 +1,8 @@
-package cn.didadu;
+package cn.didadu.delete;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
-import org.apache.zookeeper.ZooDefs.Ids;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -21,6 +20,7 @@ public class DeleteAPISyncUsage implements Watcher {
          */
         zk.delete("/persistent-node", -1);
     }
+
     @Override
     public void process(WatchedEvent event) {
         if (KeeperState.SyncConnected == event.getState()) {
