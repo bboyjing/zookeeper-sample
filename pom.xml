@@ -10,6 +10,7 @@
     <modules>
         <module>java_api</module>
         <module>zkclient</module>
+        <module>curator</module>
     </modules>
     <packaging>pom</packaging>
 
