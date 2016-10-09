@@ -11,7 +11,7 @@ import java.util.concurrent.CountDownLatch;
 public class ZooKeeperConstructorUsageSimple implements Watcher {
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         /**
          * Zookeeper客户端和服务端会话的建立是一个异步的过程
          * 也就是说在程序中，构造方法会在处理完客户端初始化工作后立即返回
@@ -24,13 +24,15 @@ public class ZooKeeperConstructorUsageSimple implements Watcher {
         try {
             //等待Watcher通知SyncConnected
             connectedSemaphore.await();
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
         System.out.println("ZooKeeper session established.");
     }
 
     /**
      * ZooKeeper_Constructor_Usage_Simples实现了Watcher接口，重写了process方法
      * 该方法负责处理来自Zookeeper服务端的Watcher通知，即服务端建立连接后会调用该方法
+     *
      * @param event
      */
     public void process(WatchedEvent event) {

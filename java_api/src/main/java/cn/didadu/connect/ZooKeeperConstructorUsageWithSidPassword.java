@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 public class ZooKeeperConstructorUsageWithSidPassword implements Watcher {
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         ZooKeeper zookeeper = new ZooKeeper("localhost:2181", 5000,
                 new ZooKeeperConstructorUsageWithSidPassword());
         connectedSemaphore.await();
@@ -21,7 +21,7 @@ public class ZooKeeperConstructorUsageWithSidPassword implements Watcher {
          * 获取sessionId、password，目的是为了复用会话
          */
         long sessionId = zookeeper.getSessionId();
-        byte[] password  = zookeeper.getSessionPasswd();
+        byte[] password = zookeeper.getSessionPasswd();
 
         //使用错误的sessionId和password连接
         zookeeperConnector wrong = new zookeeperConnector(1, "test".getBytes(), new CountDownLatch(1));
@@ -32,6 +32,7 @@ public class ZooKeeperConstructorUsageWithSidPassword implements Watcher {
         correct.connect();
 
     }
+
     public void process(WatchedEvent event) {
         System.out.println("Receive watched event：" + event);
         if (KeeperState.SyncConnected == event.getState()) {
@@ -39,12 +40,12 @@ public class ZooKeeperConstructorUsageWithSidPassword implements Watcher {
         }
     }
 
-    static class zookeeperConnector implements Watcher{
+    static class zookeeperConnector implements Watcher {
         private long sessionId;
         private byte[] password;
         private CountDownLatch connectedSemaphore;
 
-        public zookeeperConnector(long sessionId, byte[] password, CountDownLatch connectedSemaphore){
+        public zookeeperConnector(long sessionId, byte[] password, CountDownLatch connectedSemaphore) {
             this.sessionId = sessionId;
             this.password = password;
             this.connectedSemaphore = connectedSemaphore;

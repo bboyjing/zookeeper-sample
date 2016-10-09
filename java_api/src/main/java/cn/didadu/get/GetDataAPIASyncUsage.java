@@ -15,18 +15,18 @@ public class GetDataAPIASyncUsage implements Watcher {
     private static ZooKeeper zk;
 
     public static void main(String[] args) throws Exception {
-    	String path = "/zk-book";
-    	zk = new ZooKeeper("localhost:2181", 5000, new GetDataAPIASyncUsage());
+        String path = "/zk-book";
+        zk = new ZooKeeper("localhost:2181", 5000, new GetDataAPIASyncUsage());
         connectedSemaphore.await();
 
         //创建节点
-        zk.create( path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL );
+        zk.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
         //异步获取节点数据
-        zk.getData( path, true, new IDataCallback(), null );
+        zk.getData(path, true, new IDataCallback(), null);
 
         //修改节点的值
-        zk.setData(path, "123".getBytes(), -1 );
+        zk.setData(path, "123".getBytes(), -1);
         nodeDataChangedSemaphore.await();
     }
 
@@ -37,20 +37,21 @@ public class GetDataAPIASyncUsage implements Watcher {
                 connectedSemaphore.countDown();
             } else if (event.getType() == EventType.NodeDataChanged) {
                 try {
-                    zk.getData( event.getPath(), true, new IDataCallback(), null );
-                } catch (Exception e) {}
+                    zk.getData(event.getPath(), true, new IDataCallback(), null);
+                } catch (Exception e) {
+                }
             }
         }
     }
 }
 
-class IDataCallback implements AsyncCallback.DataCallback{
+class IDataCallback implements AsyncCallback.DataCallback {
 
     public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
         System.out.println(rc + ", " + path + ", " + new String(data));
-        System.out.println(stat.getCzxid()+","+
-                  		   stat.getMzxid()+","+
-		                   stat.getVersion());
+        System.out.println(stat.getCzxid() + "," +
+                stat.getMzxid() + "," +
+                stat.getVersion());
         GetDataAPIASyncUsage.nodeDataChangedSemaphore.countDown();
     }
 }

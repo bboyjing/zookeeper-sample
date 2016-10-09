@@ -1,4 +1,5 @@
 package cn.didadu.curatorApi;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -15,10 +16,10 @@ public class DelDataSample {
             .namespace("base").build();
 
     public static void main(String[] args) throws Exception {
-    	client.start();
+        client.start();
         Stat stat = new Stat();
         client.getData().storingStatIn(stat).forPath(path);
         client.delete().deletingChildrenIfNeeded()
-                       .withVersion(stat.getVersion()).forPath(path);
+                .withVersion(stat.getVersion()).forPath(path);
     }
 }

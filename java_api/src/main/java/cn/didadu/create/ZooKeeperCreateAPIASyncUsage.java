@@ -48,7 +48,7 @@ public class ZooKeeperCreateAPIASyncUsage implements Watcher {
 class IStringCallback implements AsyncCallback.StringCallback {
     private CountDownLatch createSemaphore;
 
-    public IStringCallback(CountDownLatch createSemaphore){
+    public IStringCallback(CountDownLatch createSemaphore) {
         this.createSemaphore = createSemaphore;
     }
 

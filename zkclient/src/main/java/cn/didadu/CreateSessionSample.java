@@ -8,7 +8,7 @@ import java.io.IOException;
 public class CreateSessionSample {
     public static void main(String[] args) {
         //ZkClient通过内部封装，将zookeeper异步的会话过程同步化了
-    	ZkClient zkClient = new ZkClient("localhost:2181", 5000);
-    	System.out.println("ZooKeeper session established.");
+        ZkClient zkClient = new ZkClient("localhost:2181", 5000);
+        System.out.println("ZooKeeper session established.");
     }
 }

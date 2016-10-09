@@ -13,17 +13,18 @@ public class SetDataAPIASyncUsage implements Watcher {
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
-    	String path = "/zk-book";
+        String path = "/zk-book";
         ZooKeeper zk = new ZooKeeper("localhost:2181", 5000, new SetDataAPIASyncUsage());
-    	connectedSemaphore.await();
+        connectedSemaphore.await();
 
-    	zk.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL );
+        zk.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
         CountDownLatch setSemaphore = new CountDownLatch(1);
-    	zk.setData( path, "456".getBytes(), -1, new IStatCallback(setSemaphore), null );
+        zk.setData(path, "456".getBytes(), -1, new IStatCallback(setSemaphore), null);
         setSemaphore.await();
 
     }
+
     @Override
     public void process(WatchedEvent event) {
         if (KeeperState.SyncConnected == event.getState()) {
@@ -34,10 +35,10 @@ public class SetDataAPIASyncUsage implements Watcher {
     }
 }
 
-class IStatCallback implements AsyncCallback.StatCallback{
+class IStatCallback implements AsyncCallback.StatCallback {
     private CountDownLatch setSemaphore;
 
-    public IStatCallback(CountDownLatch setSemaphore){
+    public IStatCallback(CountDownLatch setSemaphore) {
         this.setSemaphore = setSemaphore;
     }
 

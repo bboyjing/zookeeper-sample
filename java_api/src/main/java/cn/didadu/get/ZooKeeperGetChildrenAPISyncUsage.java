@@ -17,13 +17,13 @@ public class ZooKeeperGetChildrenAPISyncUsage implements Watcher {
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
     private static CountDownLatch watcherSemaphore = new CountDownLatch(1);
     private static ZooKeeper zk = null;
-    
-    public static void main(String[] args) throws Exception{
+
+    public static void main(String[] args) throws Exception {
         /**
          * 声明node路径
          * 实例化Zookeeper
          */
-    	String path = "/zk-book";
+        String path = "/zk-book";
         zk = new ZooKeeper("localhost:2181", 500000, new ZooKeeperGetChildrenAPISyncUsage());
         connectedSemaphore.await();
 
@@ -43,8 +43,8 @@ public class ZooKeeperGetChildrenAPISyncUsage implements Watcher {
          */
         List<String> childrenList = zk.getChildren(path, true);
         System.out.println(childrenList);
-        
-        zk.create(path+"/c2", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+
+        zk.create(path + "/c2", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         watcherSemaphore.await();
     }
 
@@ -55,9 +55,10 @@ public class ZooKeeperGetChildrenAPISyncUsage implements Watcher {
             } else if (event.getType() == EventType.NodeChildrenChanged) {
                 try {
                     //收到子节点变更通知，重新主动查询子节点信息
-                    System.out.println("ReGet Child:" + zk.getChildren(event.getPath(),true));
+                    System.out.println("ReGet Child:" + zk.getChildren(event.getPath(), true));
                     watcherSemaphore.countDown();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         }
     }

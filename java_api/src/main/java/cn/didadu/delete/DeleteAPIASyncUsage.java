@@ -8,7 +8,7 @@ import org.apache.zookeeper.ZooKeeper;
 import java.util.concurrent.CountDownLatch;
 
 // ZooKeeper API 删除节点，使用一异步(async)接口。
-public class DeleteAPIASyncUsage implements Watcher{
+public class DeleteAPIASyncUsage implements Watcher {
     private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
@@ -38,7 +38,7 @@ class IVoidCallback implements AsyncCallback.VoidCallback {
 
     private CountDownLatch createSemaphore;
 
-    public IVoidCallback(CountDownLatch createSemaphore){
+    public IVoidCallback(CountDownLatch createSemaphore) {
         this.createSemaphore = createSemaphore;
     }
 

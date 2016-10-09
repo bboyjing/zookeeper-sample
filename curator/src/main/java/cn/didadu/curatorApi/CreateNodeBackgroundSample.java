@@ -23,7 +23,7 @@ public class CreateNodeBackgroundSample {
     static ExecutorService tp = Executors.newFixedThreadPool(2);
 
     public static void main(String[] args) throws Exception {
-    	client.start();
+        client.start();
         System.out.println("Main thread: " + Thread.currentThread().getName());
 
         /**
@@ -32,10 +32,10 @@ public class CreateNodeBackgroundSample {
          */
         client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL)
                 .inBackground((client1, event) -> {
-            System.out.println("event[code: " + event.getResultCode() + ", type: " + event.getType() + "]");
-            System.out.println("Thread of processResult: " + Thread.currentThread().getName());
-            semaphore.countDown();
-        }, tp).forPath(path, "init".getBytes());
+                    System.out.println("event[code: " + event.getResultCode() + ", type: " + event.getType() + "]");
+                    System.out.println("Thread of processResult: " + Thread.currentThread().getName());
+                    semaphore.countDown();
+                }, tp).forPath(path, "init".getBytes());
 
         //
         /**
@@ -44,10 +44,10 @@ public class CreateNodeBackgroundSample {
          */
         client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL)
                 .inBackground((client12, event) -> {
-            System.out.println("event[code: " + event.getResultCode() + ", type: " + event.getType() + "]");
-            System.out.println("Thread of processResult: " + Thread.currentThread().getName());
-            semaphore.countDown();
-        }).forPath(path, "init".getBytes());
+                    System.out.println("event[code: " + event.getResultCode() + ", type: " + event.getType() + "]");
+                    System.out.println("Thread of processResult: " + Thread.currentThread().getName());
+                    semaphore.countDown();
+                }).forPath(path, "init".getBytes());
 
         semaphore.await();
         tp.shutdown();

@@ -13,7 +13,7 @@ public class DeleteAPISyncUsage implements Watcher {
 
     public static void main(String[] args) throws Exception {
         ZooKeeper zk = new ZooKeeper("localhost:2181", 5000, new DeleteAPISyncUsage());
-    	connectedSemaphore.await();
+        connectedSemaphore.await();
 
         /**
          * 删除节点，需要注意的是至允许删除叶子节点

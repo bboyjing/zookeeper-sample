@@ -1,4 +1,5 @@
 package cn.didadu.curatorApi;
+
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -17,9 +18,9 @@ public class GetDataSample {
     public static void main(String[] args) throws Exception {
         client.start();
         client.create()
-              .creatingParentsIfNeeded()
-              .withMode(CreateMode.EPHEMERAL)
-              .forPath(path, "init".getBytes());
+                .creatingParentsIfNeeded()
+                .withMode(CreateMode.EPHEMERAL)
+                .forPath(path, "init".getBytes());
         Stat stat = new Stat();
         System.out.println(new String(client.getData().storingStatIn(stat).forPath(path)));
     }
