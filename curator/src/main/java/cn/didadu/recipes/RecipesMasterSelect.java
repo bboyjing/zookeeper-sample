@@ -1,4 +1,4 @@
-package recipes;
+package cn.didadu.recipes;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

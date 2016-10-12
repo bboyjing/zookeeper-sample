@@ -1,4 +1,4 @@
-package recipes;
+package cn.didadu.recipes;
 
 import java.io.IOException;
 import java.util.concurrent.CyclicBarrier;

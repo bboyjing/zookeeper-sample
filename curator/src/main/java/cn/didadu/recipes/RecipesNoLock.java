@@ -1,4 +1,4 @@
-package recipes;
+package cn.didadu.recipes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
