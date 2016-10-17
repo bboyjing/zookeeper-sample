@@ -11,6 +11,7 @@
         <module>java_api</module>
         <module>zkclient</module>
         <module>curator</module>
+        <module>configuration</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -28,17 +29,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Zookeeper -->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
